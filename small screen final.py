@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'small screen.ui'
+# Form implementation generated from reading ui file 'small screen final.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.3
 #
@@ -204,23 +204,61 @@ class Ui_MainWindow(object):
         self.salesmanLabel = QtWidgets.QLabel(self.centralwidget)
         self.salesmanLabel.setGeometry(QtCore.QRect(10, 470, 61, 21))
         self.salesmanLabel.setObjectName("salesmanLabel")
-        self.titleBox_5 = QtWidgets.QComboBox(self.centralwidget)
-        self.titleBox_5.setGeometry(QtCore.QRect(80, 470, 301, 21))
-        self.titleBox_5.setStyleSheet("font-size:13px;\n"
+        self.salesmanBox = QtWidgets.QComboBox(self.centralwidget)
+        self.salesmanBox.setGeometry(QtCore.QRect(80, 470, 301, 22))
+        self.salesmanBox.setStyleSheet("font-size:13px;\n"
 "font-weight:bold;\n"
 "")
-        self.titleBox_5.setObjectName("titleBox_5")
-        self.titleBox_5.addItem("")
-        self.titleBox_5.addItem("")
-        self.titleBox_5.addItem("")
+        self.salesmanBox.setObjectName("salesmanBox")
+        self.salesmanBox.addItem("")
+        self.salesmanBox.addItem("")
+        self.saveBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.saveBtn.setGeometry(QtCore.QRect(140, 510, 111, 51))
+        self.saveBtn.setStyleSheet("background:#0fa1db;\n"
+"font-size:15px;\n"
+"font-weight:bold;")
+        self.saveBtn.setObjectName("saveBtn")
+        self.cancelBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.cancelBtn.setGeometry(QtCore.QRect(360, 510, 111, 51))
+        self.cancelBtn.setStyleSheet("background:#db0f49;\n"
+"font-size:15px;\n"
+"font-weight:bold;")
+        self.cancelBtn.setObjectName("cancelBtn")
+        self.recordsBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.recordsBtn.setGeometry(QtCore.QRect(450, 140, 111, 71))
+        self.recordsBtn.setStyleSheet("background:#4ae815;\n"
+"font-size:15px;\n"
+"font-weight:bold;")
+        self.recordsBtn.setObjectName("recordsBtn")
+        self.takeBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.takeBtn.setGeometry(QtCore.QRect(280, 120, 71, 51))
+        self.takeBtn.setStyleSheet("background:#98a39d;\n"
+"font-size:15px;\n"
+"font-weight:bold;")
+        self.takeBtn.setObjectName("takeBtn")
+        self.retakeBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.retakeBtn.setGeometry(QtCore.QRect(280, 200, 71, 51))
+        self.retakeBtn.setStyleSheet("background:#c0c73a;\n"
+"font-size:15px;\n"
+"font-weight:bold;")
+        self.retakeBtn.setObjectName("retakeBtn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 622, 21))
         self.menubar.setObjectName("menubar")
+        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.actionAdd_Salesman = QtWidgets.QAction(MainWindow)
+        self.actionAdd_Salesman.setObjectName("actionAdd_Salesman")
+        self.actionRemove_Salesman = QtWidgets.QAction(MainWindow)
+        self.actionRemove_Salesman.setObjectName("actionRemove_Salesman")
+        self.menuFile.addAction(self.actionAdd_Salesman)
+        self.menuFile.addAction(self.actionRemove_Salesman)
+        self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -310,9 +348,16 @@ class Ui_MainWindow(object):
         self.priceLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Price</span></p></body></html>"))
         self.addressLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Address</span></p></body></html>"))
         self.salesmanLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">SalesMan</span></p></body></html>"))
-        self.titleBox_5.setItemText(0, _translate("MainWindow", "Mr."))
-        self.titleBox_5.setItemText(1, _translate("MainWindow", "Ms."))
-        self.titleBox_5.setItemText(2, _translate("MainWindow", "Mrs."))
+        self.salesmanBox.setItemText(0, _translate("MainWindow", "Sagir"))
+        self.salesmanBox.setItemText(1, _translate("MainWindow", "Roton"))
+        self.saveBtn.setText(_translate("MainWindow", "Save"))
+        self.cancelBtn.setText(_translate("MainWindow", "Cancel"))
+        self.recordsBtn.setText(_translate("MainWindow", "All Records"))
+        self.takeBtn.setText(_translate("MainWindow", "Take"))
+        self.retakeBtn.setText(_translate("MainWindow", "Re-Take"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.actionAdd_Salesman.setText(_translate("MainWindow", "Add Salesman"))
+        self.actionRemove_Salesman.setText(_translate("MainWindow", "Remove Salesman"))
 
 
 if __name__ == "__main__":
