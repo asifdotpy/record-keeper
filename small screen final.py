@@ -11,10 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(622, 619)
+        MainWindow.setFixedWidth(622)
+        MainWindow.setFixedHeight(619)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
@@ -54,6 +57,9 @@ class Ui_MainWindow(object):
 "font-weight:bold;\n"
 "text-transform: capitalize;")
         self.nameEdit.setObjectName("nameEdit")
+        #-------------------------------only int----------------------------------------#
+        self.onlyInt = QtGui.QIntValidator()
+        #-------------------------------------------------------------------------------#
         self.mobileLabel = QtWidgets.QLabel(self.centralwidget)
         self.mobileLabel.setGeometry(QtCore.QRect(20, 350, 41, 21))
         self.mobileLabel.setObjectName("mobileLabel")
@@ -63,6 +69,7 @@ class Ui_MainWindow(object):
 "font-weight:bold;\n"
 "text-transform: capitalize;")
         self.mobileEdit.setObjectName("mobileEdit")
+        self.mobileEdit.setValidator(self.onlyInt)
         self.itemLabel = QtWidgets.QLabel(self.centralwidget)
         self.itemLabel.setGeometry(QtCore.QRect(20, 380, 41, 21))
         self.itemLabel.setObjectName("itemLabel")
@@ -166,17 +173,18 @@ class Ui_MainWindow(object):
         self.itemBox.addItem("")
         self.itemBox.addItem("")
         self.itemBox.addItem("")
-        self.quantityLabel = QtWidgets.QLabel(self.centralwidget)
-        self.quantityLabel.setGeometry(QtCore.QRect(200, 380, 41, 21))
-        self.quantityLabel.setStyleSheet("font-size:12;\n"
+        self.picesLabel = QtWidgets.QLabel(self.centralwidget)
+        self.picesLabel.setGeometry(QtCore.QRect(200, 380, 41, 21))
+        self.picesLabel.setStyleSheet("font-size:12;\n"
 "font-weight:bold;")
-        self.quantityLabel.setObjectName("quantityLabel")
-        self.mobileEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.mobileEdit_2.setGeometry(QtCore.QRect(240, 380, 35, 22))
-        self.mobileEdit_2.setStyleSheet("font-size:15px;\n"
+        self.picesLabel.setObjectName("quantityLabel")
+        self.picesEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.picesEdit.setGeometry(QtCore.QRect(240, 380, 35, 22))
+        self.picesEdit.setStyleSheet("font-size:15px;\n"
 "font-weight:bold;\n"
 "text-transform: capitalize;")
-        self.mobileEdit_2.setObjectName("mobileEdit_2")
+        self.picesEdit.setObjectName("mobileEdit_2")
+        self.picesEdit.setValidator(self.onlyInt)
         self.priceLabel = QtWidgets.QLabel(self.centralwidget)
         self.priceLabel.setGeometry(QtCore.QRect(280, 380, 33, 21))
         self.priceLabel.setObjectName("priceLabel")
@@ -186,12 +194,13 @@ class Ui_MainWindow(object):
 "font-weight:bold;\n"
 "text-transform: capitalize;")
         self.mobileEdit_3.setObjectName("mobileEdit_3")
-        self.mobileEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
-        self.mobileEdit_4.setGeometry(QtCore.QRect(320, 380, 61, 22))
-        self.mobileEdit_4.setStyleSheet("font-size:15px;\n"
+        self.priceEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.priceEdit.setGeometry(QtCore.QRect(320, 380, 61, 22))
+        self.priceEdit.setStyleSheet("font-size:15px;\n"
 "font-weight:bold;\n"
 "text-transform: capitalize;")
-        self.mobileEdit_4.setObjectName("mobileEdit_4")
+        self.priceEdit.setObjectName("priceEdit")
+        self.priceEdit.setValidator(self.onlyInt)
         self.addressLabel = QtWidgets.QLabel(self.centralwidget)
         self.addressLabel.setGeometry(QtCore.QRect(10, 440, 61, 21))
         self.addressLabel.setObjectName("addressLabel")
@@ -344,7 +353,7 @@ class Ui_MainWindow(object):
         self.itemBox.setItemText(16, _translate("MainWindow", "Party Spray"))
         self.itemBox.setItemText(17, _translate("MainWindow", "Baloon"))
         self.itemBox.setItemText(18, _translate("MainWindow", "Others"))
-        self.quantityLabel.setText(_translate("MainWindow", "<html><head/><body><p>Pieces</p></body></html>"))
+        self.picesLabel.setText(_translate("MainWindow", "<html><head/><body><p>Pieces</p></body></html>"))
         self.priceLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Price</span></p></body></html>"))
         self.addressLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Address</span></p></body></html>"))
         self.salesmanLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">SalesMan</span></p></body></html>"))
@@ -358,6 +367,15 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionAdd_Salesman.setText(_translate("MainWindow", "Add Salesman"))
         self.actionRemove_Salesman.setText(_translate("MainWindow", "Remove Salesman"))
+        #---------------------------cancel Button ---------------------------------#
+        self.cancelBtn.clicked.connect(self.cancelBtnFunc)
+        #--------------------------------------------------------------------------#
+    def cancelBtnFunc(self):
+        self.nameEdit.clear()
+        self.picesEdit.clear()
+        self.priceEdit.clear()
+        self.mobileEdit.clear()
+        return self.addressEdit.clear()
 
 
 if __name__ == "__main__":
