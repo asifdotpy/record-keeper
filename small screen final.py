@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QListWidget, QTableWidgetItem
 from database import Database
 from tableView import Ui_Form
 
@@ -184,13 +184,13 @@ class Ui_MainWindow(object):
         self.picesLabel.setStyleSheet("font-size:12;\n"
 "font-weight:bold;")
         self.picesLabel.setObjectName("quantityLabel")
-        self.picesEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.picesEdit.setGeometry(QtCore.QRect(240, 380, 35, 22))
-        self.picesEdit.setStyleSheet("font-size:15px;\n"
+        self.piecesEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.piecesEdit.setGeometry(QtCore.QRect(240, 380, 35, 22))
+        self.piecesEdit.setStyleSheet("font-size:15px;\n"
 "font-weight:bold;\n"
 "text-transform: capitalize;")
-        self.picesEdit.setObjectName("mobileEdit_2")
-        self.picesEdit.setValidator(self.onlyInt)
+        self.piecesEdit.setObjectName("mobileEdit_2")
+        self.piecesEdit.setValidator(self.onlyInt)
         self.priceLabel = QtWidgets.QLabel(self.centralwidget)
         self.priceLabel.setGeometry(QtCore.QRect(280, 380, 33, 21))
         self.priceLabel.setObjectName("priceLabel")
@@ -277,6 +277,22 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        #------------------------------------plus button added--------------------------------#
+        self.plusBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.plusBtn.setGeometry(QtCore.QRect(383,377,31,31))
+        self.plusBtn.setStyleSheet("border:0px;")
+        self.plusBtn.setObjectName("plusBtn")
+        self.plusBtn.setIcon(QtGui.QIcon("./images/plus-icon.png"))
+        self.plusBtn.setIconSize(QtCore.QSize(25,25))
+        self.plusBtn.clicked.connect(self.plusBtnfunc)
+        self.index = 1
+        #-------------------------------------------------------------------------------------#
+        #----------------------------------Display console------------------------------------#
+        self.displayList = QListWidget(self.centralwidget)
+        self.displayList.setGeometry(QtCore.QRect(416, 260, 201, 218))
+        self.displayList.setObjectName("displayList")
+
+        #-------------------------------------------------------------------------------------#
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -391,9 +407,10 @@ class Ui_MainWindow(object):
 
     def cancelBtnFunc(self):
         self.nameEdit.clear()
-        self.picesEdit.clear()
+        self.piecesEdit.clear()
         self.priceEdit.clear()
         self.mobileEdit.clear()
+        self.displayList.clear()
         return self.addressEdit.clear()
 
 
@@ -402,7 +419,7 @@ class Ui_MainWindow(object):
             name = self.titleBox.currentText() + self.nameEdit.text()
             mobile = int(self.mobileEdit.text())
             products = self.itemBox.currentText()
-            pieces = self.picesEdit.text()
+            pieces = self.piecesEdit.text()
             price = self.priceEdit.text()
             day = self.dayBox.currentText()
             month = self.monthBox.currentText()
@@ -412,6 +429,8 @@ class Ui_MainWindow(object):
             db = Database(dbName="db.sqlite", tableName="data")
             db.add_data(name, mobile, products, pieces, price, day, month, year, address, salesman)
             self.popUp(title="Congratulations", text="Record added Successfully")
+            self.index = 1
+            self.displayList.clear()
             self.cancelBtnFunc()
         except:
             self.popUp(title="Warning", text="Please fill all the records")
@@ -428,6 +447,9 @@ class Ui_MainWindow(object):
             self.secondWindow.close()  # Close window.
             self.secondWindow = None  # Discard reference.
 
+    def plusBtnfunc(self):
+        self.displayList.addItem(str(self.index) + ". "+ self.itemBox.currentText() + " * " + self.piecesEdit.text() + " * " + self.priceEdit.text() + " = " + f"{int(self.piecesEdit.text()) * int(self.priceEdit.text())}")
+        self.index += 1
 
 
 if __name__ == "__main__":

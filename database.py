@@ -19,8 +19,7 @@ class Database():
         self.connecion.commit()
 
 
-db = Database("db.sqlite", "data")
-db.add_data("Afzal", 167556465, 'paijama', 5, 1500, 1, 2, 2021, 'mdpur', 'sonu')
+
 
 
 
