@@ -20,7 +20,7 @@ class Ui_Form(object):
         self.tableWidget.setGeometry(QtCore.QRect(0, 0, 1021, 501))
         self.tableWidget.setStyleSheet("font-size:14px;\n"
 "font-weight:bold;")
-        self.tableWidget.setRowCount(15)
+        self.tableWidget.setRowCount(self.rowCount())
         self.tableWidget.setColumnCount(10)
         self.tableWidget.setObjectName("tableWidget")
         item = QtWidgets.QTableWidgetItem()
@@ -71,6 +71,15 @@ class Ui_Form(object):
         item = self.tableWidget.horizontalHeaderItem(9)
         item.setText(_translate("Form", "Salesman"))
 
+    def db(self):
+        self.connection = sqlite3.connect("db.sqlite")
+        self.cursor = self.connection.cursor()
+        return self.cursor
+
+    def rowCount(self):
+        """This method will return exact rows from the table"""
+        rows = self.db().execute("SELECT COUNT(*) FROM data")
+        return rows.fetchall()[0][0]
 
 if __name__ == "__main__":
     import sys

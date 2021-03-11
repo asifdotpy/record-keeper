@@ -8,28 +8,25 @@ class Database():
         self.connecion = sqlite3.connect(dbName)
         self.cursor = self.connecion.cursor()
         self.cursor.execute(
-            f"""CREATE TABLE IF NOT EXISTS {self.tableName}(name VARCHAR, mobile INTEGER)"""
+            """CREATE TABLE IF NOT EXISTS data (name VARCHAR, mobile INTEGER, products VARCHAR, pieces INTEGER, price INTEGER, day INTEGER, month INTEGER, year INTEGER, address VARCHAR, salesman VARCHAR)"""
         )
 
         self.connecion.commit()
         print(self.connecion)
 
-    def add_data(self, name, mobile):
-        self.connecion.execute(f"INSERT INTO {self.tableName} VALUES ('{name}', {mobile})")
+    def add_data(self, name, mobile, products, pieces, price, day, month, year, address, salesman):
+        self.connecion.execute(f"INSERT INTO data VALUES ('{name}', {mobile}, '{products}', {pieces}, {price}, {day}, {month}, {year}, '{address}', '{salesman}')")
         self.connecion.commit()
-        return self.connecion.close()
-    def fetchAll(self):
-        result = self.cursor.execute(f"SELECT * FROM {self.tableName}")
-        self.connecion.commit()
-        return result
-    def tables(self):
-        self.cursor.description()
 
 
-db = Database("db4", 'kalim4')
-db.add_data("sdf", 122554)
-for i in db.fetchAll():
-    print(i)
+db = Database("db.sqlite", "data")
+db.add_data("Afzal", 167556465, 'paijama', 5, 1500, 1, 2, 2021, 'mdpur', 'sonu')
+
+
+
+
+
+
 
 
 

@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-import sqlite3
+from database import Database
 from tableView import Ui_Form
 
 #----------------------------------------Mainwondow--------------------------------------------------#
@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         #------------------------------------------------setting another window ----------------------------#
-        self.w = None
+        self.secondWindow = None
         #----------------------------------------------------------------------------------------------------#
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(40, 10, 541, 61))
@@ -409,12 +409,8 @@ class Ui_MainWindow(object):
             year = self.yearBox.currentText()
             address = self.addressEdit.text()
             salesman = self.salesmanBox.currentText()
-            connection = sqlite3.connect("db.sqlite")
-            cursor = connection.cursor()
-            cursor.execute("CREATE TABLE IF NOT EXISTS data (name VARCHAR, mobile INTEGER, products VARCHAR, pieces INTEGER, price INTEGER, day INTEGER, month INTEGER, year INTEGER, address VARCHAR, salesman VARCHAR)")
-            connection.commit()
-            cursor.execute(f"INSERT INTO data VALUES ('{name}', {mobile}, '{products}', {pieces}, {price}, {day}, {month}, {year}, '{address}', '{salesman}')")
-            connection.commit()
+            db = Database(dbName="db.sqlite", tableName="data")
+            db.add_data(name, mobile, products, pieces, price, day, month, year, address, salesman)
             self.popUp(title="Congratulations", text="Record added Successfully")
             self.cancelBtnFunc()
         except:
@@ -422,20 +418,15 @@ class Ui_MainWindow(object):
 
     def show_new_window(self, checked):
 
-        if self.w is None:
+        if self.secondWindow is None:
             self.Form = QtWidgets.QWidget()
             self.ui = Ui_Form()
             self.ui.setupUi(self.Form)
             self.Form.show()
 
         else:
-            self.w.close()  # Close window.
-            self.w = None  # Discard reference.
-
-
-
-
-
+            self.secondWindow.close()  # Close window.
+            self.secondWindow = None  # Discard reference.
 
 
 
