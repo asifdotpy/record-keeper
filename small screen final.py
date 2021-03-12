@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QListWidget, QTableWidgetItem, QCheckBox
+from PyQt5.QtWidgets import QMessageBox, QListWidget, QCheckBox, QPushButton
+from myCamera import CameraWindow
 from database import Database
 from tableView import Ui_Form
 import datetime
@@ -41,12 +42,14 @@ class Ui_MainWindow(object):
         self.picLabel = QtWidgets.QLabel(self.centralwidget)
         self.picLabel.setGeometry(QtCore.QRect(16, 180, 51, 20))
         self.picLabel.setObjectName("picLabel")
-        self.cameraFrame = QtWidgets.QFrame(self.centralwidget)
+        #------------------------------------camera frame------------------------------------------#
+        self.cameraFrame = QPushButton(self.centralwidget)
         self.cameraFrame.setGeometry(QtCore.QRect(80, 100, 181, 181))
-        self.cameraFrame.setStyleSheet("border: 0.5px solid green;")
-        self.cameraFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.cameraFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.cameraFrame.setObjectName("cameraFrame")
+        self.cameraFrame.setText("Open Camera")
+        self.cameraFrame.setStyleSheet("font-size:20px; font-weight:bold; text-transform:capitalize; background:#b8b537")
+        self.cameraFrame.clicked.connect(self.cameraOpen)
+        #------------------------------------------------------------------------------------------#
         self.nameLabel = QtWidgets.QLabel(self.centralwidget)
         self.nameLabel.setGeometry(QtCore.QRect(20, 310, 41, 21))
         self.nameLabel.setObjectName("nameLabel")
@@ -279,6 +282,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
         #------------------------------------plus button added--------------------------------#
         self.plusBtn = QtWidgets.QPushButton(self.centralwidget)
         self.plusBtn.setGeometry(QtCore.QRect(383,375,31,31))
@@ -305,7 +310,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Noyon Kuthir Punjabi Ghar"))
-        self.picLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Picture</span></p></body></html>"))
+        self.picLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Image</span></p></body></html>"))
         self.nameLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Name</span></p></body></html>"))
         self.titleBox.setItemText(0, _translate("MainWindow", "Mr."))
         self.titleBox.setItemText(1, _translate("MainWindow", "Ms."))
@@ -479,6 +484,12 @@ class Ui_MainWindow(object):
                 namesOnly += name
                 namesOnly += ","
             return namesOnly
+
+
+    def cameraOpen(self):
+        CameraWindow()
+
+
 
 
 if __name__ == "__main__":
