@@ -9,9 +9,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QListWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox, QListWidget, QTableWidgetItem, QCheckBox
 from database import Database
 from tableView import Ui_Form
+import datetime
+import re
 
 #----------------------------------------Mainwondow--------------------------------------------------#
 
@@ -279,14 +281,19 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         #------------------------------------plus button added--------------------------------#
         self.plusBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.plusBtn.setGeometry(QtCore.QRect(383,377,31,31))
+        self.plusBtn.setGeometry(QtCore.QRect(383,375,31,31))
         self.plusBtn.setStyleSheet("border:0px;")
         self.plusBtn.setObjectName("plusBtn")
         self.plusBtn.setIcon(QtGui.QIcon("./images/plus-icon.png"))
         self.plusBtn.setIconSize(QtCore.QSize(25,25))
         self.plusBtn.clicked.connect(self.plusBtnfunc)
         self.index = 1
-        #-------------------------------------------------------------------------------------#
+        #---------------------------------today checkbox-------------------------------------#
+        self.todayCheck = QCheckBox(self.centralwidget)
+        self.todayCheck.setGeometry(QtCore.QRect(392, 410, 16, 21))
+        self.todayCheck.setObjectName("todayCheck")
+        self.todayCheck.stateChanged.connect(self.todayCheckfunc)
+
         #----------------------------------Display console------------------------------------#
         self.displayList = QListWidget(self.centralwidget)
         self.displayList.setGeometry(QtCore.QRect(416, 260, 201, 218))
@@ -418,16 +425,14 @@ class Ui_MainWindow(object):
         try:
             name = self.titleBox.currentText() + self.nameEdit.text()
             mobile = int(self.mobileEdit.text())
-            products = self.itemBox.currentText()
+            products = self.totalItem()
             pieces = self.piecesEdit.text()
             price = self.priceEdit.text()
-            day = self.dayBox.currentText()
-            month = self.monthBox.currentText()
-            year = self.yearBox.currentText()
+            date = self.dayBox.currentText() + "/" + self.monthBox.currentText() + "/" + self.yearBox.currentText()
             address = self.addressEdit.text()
             salesman = self.salesmanBox.currentText()
             db = Database(dbName="db.sqlite", tableName="data")
-            db.add_data(name, mobile, products, pieces, price, day, month, year, address, salesman)
+            db.add_data(name, mobile, products, pieces, price, date, address, salesman)
             self.popUp(title="Congratulations", text="Record added Successfully")
             self.index = 1
             self.displayList.clear()
@@ -448,8 +453,32 @@ class Ui_MainWindow(object):
             self.secondWindow = None  # Discard reference.
 
     def plusBtnfunc(self):
-        self.displayList.addItem(str(self.index) + ". "+ self.itemBox.currentText() + " * " + self.piecesEdit.text() + " * " + self.priceEdit.text() + " = " + f"{int(self.piecesEdit.text()) * int(self.priceEdit.text())}")
-        self.index += 1
+        try:
+            self.displayList.addItem(str(self.index) + ". "+ self.itemBox.currentText() + " * " + self.piecesEdit.text() + " * " + self.priceEdit.text() + " = " + f"{int(self.piecesEdit.text()) * int(self.priceEdit.text())}")
+            self.index += 1
+        except:
+            self.popUp(title="Warning", text="Please fill all the records")
+
+    def todayCheckfunc(self, event):
+        if event:
+            print(datetime.datetime.now())
+
+    def totalItem(self):
+        print(self.displayList.count())
+        if self.displayList.count() == 0:
+            return self.itemBox.currentText()
+
+        else:
+            totalItemList = []
+            namesOnly = ""
+            print(namesOnly)
+            for i in range(self.displayList.count()):
+                totalItemList.append(self.displayList.item(i).text())
+            for j in totalItemList:
+                name = re.search(r"[a-zA-Z]+", j).group(0)
+                namesOnly += name
+                namesOnly += ","
+            return namesOnly
 
 
 if __name__ == "__main__":
