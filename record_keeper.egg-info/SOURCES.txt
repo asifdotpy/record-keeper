@@ -1,0 +1,12 @@
+README.md
+camera.py
+database.py
+main.py
+myCamera.py
+setup.py
+small screen final.py
+tableView.py
+record_keeper.egg-info/PKG-INFO
+record_keeper.egg-info/SOURCES.txt
+record_keeper.egg-info/dependency_links.txt
+record_keeper.egg-info/top_level.txt

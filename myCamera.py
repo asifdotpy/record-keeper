@@ -7,6 +7,7 @@ import sys
 import time
 
 
+
 # Main window class
 class CameraWindow(QMainWindow):
 
@@ -39,7 +40,7 @@ class CameraWindow(QMainWindow):
         self.setStatusBar(self.status)
 
         # path to save
-        self.save_path = ""
+        self.save_path = os.getcwd() + "\\images"
 
         # creating a QCameraViewfinder object
         self.viewfinder = QCameraViewfinder()
@@ -159,21 +160,25 @@ class CameraWindow(QMainWindow):
         self.save_seq = 0
 
     # method to take photo
-    def click_photo(self):
-
-        # time stamp
+    def photo_name(self):
         timestamp = time.strftime("%d-%b-%Y-%H_%M_%S")
 
-        # capture the image and save it on the save path
-        self.capture.capture(os.path.join(self.save_path,
-                                          "%s-%04d-%s.jpg" % (
-                                              self.current_camera_name,
-                                              self.save_seq,
-                                              timestamp
-                                          )))
-
-        # increment the sequence
+        name = os.path.join(self.save_path,
+                     "%s-%04d-%s.jpg" % (
+                         self.current_camera_name,
+                         self.save_seq,
+                         timestamp
+                     ))
         self.save_seq += 1
+        #name = name.split("record-keeperimages")[1]
+        return name
+
+
+    def click_photo(self):
+
+        # capture the image and save it on the save path
+        self.capture.capture(os.path.join(self.photo_name()))
+
 
     # change folder method
     def change_folder(self):
@@ -201,9 +206,12 @@ class CameraWindow(QMainWindow):
 
     # Driver code
 
+    def reconnect(self):
+        self.camera.disconnect()
+        self.select_camera(0)
+
 
 if __name__ == "__main__":
-
     # create pyqt5 app
     App = QApplication(sys.argv)
 

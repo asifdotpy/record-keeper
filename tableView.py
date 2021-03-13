@@ -23,7 +23,7 @@ class Ui_Form(object):
         self.tableWidget.setStyleSheet("font-size:14px;\n"
 "font-weight:bold;")
         self.tableWidget.setRowCount(self.rowCount())
-        self.tableWidget.setColumnCount(8)
+        self.tableWidget.setColumnCount(9)
         self.tableWidget.setObjectName("tableWidget")
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -41,6 +41,8 @@ class Ui_Form(object):
         self.tableWidget.setHorizontalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(7, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(8, item)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -66,11 +68,13 @@ class Ui_Form(object):
         item.setText(_translate("Form", "Address"))
         item = self.tableWidget.horizontalHeaderItem(7)
         item.setText(_translate("Form", "Salesman"))
+        item = self.tableWidget.horizontalHeaderItem(8)
+        item.setText(_translate("Form", "Image"))
     # ----------------------------------------------adding items into table-----------------------------------##
         items = self.db().execute("SELECT * FROM data")
         items = items.fetchall()
         for index, item in enumerate(items):
-            name, mobile, products, pieces, price, date, address, salesman = item
+            name, mobile, products, pieces, price, date, address, salesman, imageName = item
             self.tableWidget.setItem(index, 0, QTableWidgetItem(name))
             self.tableWidget.setItem(index, 1, QTableWidgetItem(str(mobile)))
             self.tableWidget.setItem(index, 2, QTableWidgetItem(str(products)))
@@ -79,6 +83,7 @@ class Ui_Form(object):
             self.tableWidget.setItem(index, 5, QTableWidgetItem(str(date)))
             self.tableWidget.setItem(index, 6, QTableWidgetItem(address))
             self.tableWidget.setItem(index, 7, QTableWidgetItem(salesman))
+            self.tableWidget.setItem(index, 8, QTableWidgetItem(str(imageName)))
 
     def db(self):
         self.connection = sqlite3.connect("db.sqlite")
