@@ -170,7 +170,6 @@ class CameraWindow(QMainWindow):
                          timestamp
                      ))
         self.save_seq += 1
-        #name = name.split("record-keeperimages")[1]
         return name
 
 
