@@ -440,7 +440,7 @@ class Ui_MainWindow(object):
             products = self.totalItem()
             pieces = self.totalPieces()
             price = self.totalPrice()
-            date = self.dayBox.currentText() + "/" + self.monthBox.currentText() + "/" + self.yearBox.currentText()
+            date = self.dateFunc()
             address = self.addressEdit.text()
             salesman = self.salesmanBox.currentText()
             db = Database(dbName="db.sqlite", tableName="data")
@@ -474,7 +474,7 @@ class Ui_MainWindow(object):
 
     def todayCheckfunc(self, event):
         if event:
-            print(datetime.datetime.now())
+            print(datetime.datetime.today().date())
 
     def totalItem(self):
         if self.displayList.count() == 0:
@@ -527,6 +527,13 @@ class Ui_MainWindow(object):
             for l in priceList:
                 totalPrice += int(l)
             return totalPrice
+
+    def dateFunc(self):
+        if self.todayCheck.isChecked():
+            today = datetime.datetime.now()
+            return today.strftime("%d/%m/%Y")
+        else:
+            return self.dayBox.currentText() + "/" + self.monthBox.currentText() + "/" + self.yearBox.currentText()
 
 
 
