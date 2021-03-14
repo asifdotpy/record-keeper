@@ -50,40 +50,44 @@ class Ui_Form(object):
 
 
     def retranslateUi(self, Form):
+        self.tableWidget.verticalHeader().setDefaultSectionSize(80)
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("Form", "Name"))
-        item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("Form", "Mobile"))
-        item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("Form", "Products"))
-        item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("Form", "Pieces"))
-        item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("Form", "Price"))
-        item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("Form", "Date"))
-        item = self.tableWidget.horizontalHeaderItem(6)
-        item.setText(_translate("Form", "Address"))
-        item = self.tableWidget.horizontalHeaderItem(7)
-        item.setText(_translate("Form", "Salesman"))
-        item = self.tableWidget.horizontalHeaderItem(8)
         item.setText(_translate("Form", "Image"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Name"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Mobile"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Products"))
+        item = self.tableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("Form", "Pieces"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("Form", "Price"))
+        item = self.tableWidget.horizontalHeaderItem(6)
+        item.setText(_translate("Form", "Date"))
+        item = self.tableWidget.horizontalHeaderItem(7)
+        item.setText(_translate("Form", "Address"))
+        item = self.tableWidget.horizontalHeaderItem(8)
+        item.setText(_translate("Form", "Salesman"))
+
     # ----------------------------------------------adding items into table-----------------------------------##
         items = self.db().execute("SELECT * FROM data")
         items = items.fetchall()
         for index, item in enumerate(items):
-            name, mobile, products, pieces, price, date, address, salesman, imageName = item
-            self.tableWidget.setItem(index, 0, QTableWidgetItem(name))
-            self.tableWidget.setItem(index, 1, QTableWidgetItem(str(mobile)))
-            self.tableWidget.setItem(index, 2, QTableWidgetItem(str(products)))
-            self.tableWidget.setItem(index, 3, QTableWidgetItem(str(pieces)))
-            self.tableWidget.setItem(index, 4, QTableWidgetItem(str(price)))
-            self.tableWidget.setItem(index, 5, QTableWidgetItem(str(date)))
-            self.tableWidget.setItem(index, 6, QTableWidgetItem(address))
-            self.tableWidget.setItem(index, 7, QTableWidgetItem(salesman))
-            self.tableWidget.setItem(index, 8, QTableWidgetItem(str(imageName)))
+            image, name, mobile, products, pieces, price, date, address, salesman = item
+            picData = self.getImageLabel(image)
+            self.tableWidget.setCellWidget(index, 0, picData)
+            self.tableWidget.setItem(index, 1, QTableWidgetItem(name))
+            self.tableWidget.setItem(index, 2, QTableWidgetItem(str(mobile)))
+            self.tableWidget.setItem(index, 3, QTableWidgetItem(str(products)))
+            self.tableWidget.setItem(index, 4, QTableWidgetItem(str(pieces)))
+            self.tableWidget.setItem(index, 5, QTableWidgetItem(str(price)))
+            self.tableWidget.setItem(index, 6, QTableWidgetItem(str(date)))
+            self.tableWidget.setItem(index, 7, QTableWidgetItem(address))
+            self.tableWidget.setItem(index, 8, QTableWidgetItem(salesman))
+
 
     def db(self):
         self.connection = sqlite3.connect("db.sqlite")
@@ -94,6 +98,15 @@ class Ui_Form(object):
         """This method will return exact rows from the table"""
         rows = self.db().execute("SELECT COUNT(*) FROM data")
         return rows.fetchall()[0][0]
+
+    def getImageLabel(self, image):
+        imageLabel = QtWidgets.QLabel(self.tableWidget)
+        imageLabel.setText("")
+        imageLabel.setScaledContents(True)
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(image, '.jpg')
+        imageLabel.setPixmap(pixmap)
+        return imageLabel
 
 
 if __name__ == "__main__":

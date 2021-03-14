@@ -5,6 +5,8 @@ from PyQt5.QtMultimediaWidgets import *
 import os
 import sys
 import time
+import random
+import string
 
 
 
@@ -44,6 +46,9 @@ class CameraWindow(QMainWindow):
 
         # creating a QCameraViewfinder object
         self.viewfinder = QCameraViewfinder()
+
+        # image name generator set to random letters and digits
+        self.image_name = self.photo_name()
 
         # showing this viewfinder
         self.viewfinder.show()
@@ -161,22 +166,20 @@ class CameraWindow(QMainWindow):
 
     # method to take photo
     def photo_name(self):
-        timestamp = time.strftime("%d-%b-%Y-%H_%M_%S")
-
-        name = os.path.join(self.save_path,
-                     "%s-%04d-%s.jpg" % (
-                         self.current_camera_name,
-                         self.save_seq,
-                         timestamp
-                     ))
-        self.save_seq += 1
-        return name
+        lower_case = string.ascii_lowercase
+        upper_case = string.ascii_uppercase
+        digits = string.digits
+        name = "".join((random.choice(lower_case + upper_case + digits)
+                              for i in range(15)))
+        self.image_name = self.save_path + "\\"+ name + ".jpg"
+        return self.image_name
 
 
     def click_photo(self):
 
         # capture the image and save it on the save path
-        self.capture.capture(os.path.join(self.photo_name()))
+        self.capture.capture(os.path.join(self.image_name))
+
 
 
     # change folder method

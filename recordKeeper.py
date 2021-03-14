@@ -36,7 +36,9 @@ class Ui_MainWindow(object):
         self.frame.setObjectName("frame")
         #------------------------------------------------setting another window ----------------------------#
         self.secondWindow = None
-        #----------------------------------------------------------------------------------------------------#
+        #--------------------------------------------------------------------------------------------------#
+        self.cwd = os.getcwd()
+        #--------------------------------------------------------------------------------------------------#
         self.photo_name = None
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(40, 10, 541, 61))
@@ -431,10 +433,10 @@ class Ui_MainWindow(object):
 
     def saveBtnfunc(self):
         try:
-            name = self.titleBox.currentText() + self.nameEdit.text()
             self.mobile = self.mobileEdit.text()
-            imageName = self.photo_name
-            print(imageName)
+            image = self.photo_name
+            print(image)
+            name = self.titleBox.currentText() + self.nameEdit.text()
             products = self.totalItem()
             pieces = self.totalPieces()
             price = self.totalPrice()
@@ -442,7 +444,7 @@ class Ui_MainWindow(object):
             address = self.addressEdit.text()
             salesman = self.salesmanBox.currentText()
             db = Database(dbName="db.sqlite", tableName="data")
-            db.add_data(name, self.mobile, products, pieces, price, date, address, salesman, imageName)
+            db.add_data(image, name, self.mobile, products, pieces, price, date, address, salesman)
             self.popUp(title="Congratulations", text="Record added Successfully")
             self.index = 1
             self.displayList.clear()
@@ -507,6 +509,7 @@ class Ui_MainWindow(object):
             for l in pieceList:
                 totalPiece += int(l)
             return totalPiece
+
     def totalPrice(self):
         if self.displayList.count() == 0:
             return self.priceEdit.text()
@@ -530,7 +533,7 @@ class Ui_MainWindow(object):
     def cameraOpen(self):
         #sys.argv = ['C:/Users/asifd/PycharmProjects/record-keeper/myCamera.py']
         cam = CameraWindow()
-        self.photo_name = cam.photo_name()
+        self.photo_name = cam.image_name
         cam.show()
 
 
