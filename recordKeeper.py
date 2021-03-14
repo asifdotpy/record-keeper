@@ -292,9 +292,9 @@ class Ui_MainWindow(object):
         #------------------------------------plus button added--------------------------------#
         self.plusBtn = QtWidgets.QPushButton(self.centralwidget)
         self.plusBtn.setGeometry(QtCore.QRect(383,375,31,31))
-        self.plusBtn.setStyleSheet("border:0px;")
+        self.plusBtn.setStyleSheet("border:0px; font-size:30; font-weight:bold; background:#8d8bc9")
         self.plusBtn.setObjectName("plusBtn")
-        self.plusBtn.setIcon(QtGui.QIcon("./images/plus-icon.png"))
+        self.plusBtn.setText("+")
         self.plusBtn.setIconSize(QtCore.QSize(25,25))
         self.plusBtn.clicked.connect(self.plusBtnfunc)
         self.index = 1
