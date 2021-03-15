@@ -435,7 +435,6 @@ class Ui_MainWindow(object):
         try:
             self.mobile = self.mobileEdit.text()
             image = self.photo_name
-            print(image)
             name = self.titleBox.currentText() + self.nameEdit.text()
             products = self.totalItem()
             pieces = self.totalPieces()
@@ -474,7 +473,7 @@ class Ui_MainWindow(object):
 
     def todayCheckfunc(self, event):
         if event:
-            print(datetime.datetime.today().date())
+            pass
 
     def totalItem(self):
         if self.displayList.count() == 0:
@@ -551,6 +550,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+    import os
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

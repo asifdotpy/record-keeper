@@ -192,10 +192,7 @@ class CameraWindow(QMainWindow):
         # if path is selected
         if path:
             # update the path
-            self.save_path = path
-
-            # update the sequence
-            self.save_seq = 0
+            os.getcwd() + "\\images"
 
     # method for alerts
     def alert(self, msg):
