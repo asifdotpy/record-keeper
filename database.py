@@ -30,6 +30,14 @@ class Database():
 """, (image, name, mobile, products, pieces, price, date, address, salesman))
         self.connecion.commit()
 
+    def data_extractor(self, column):
+        """this method will take a column name and create a list of rows data"""
+        data = self.cursor.execute(f"SELECT {column} FROM data;")
+        self.connecion.commit()
+        return [i[0] for i in data]
+
+
+
 
 
 

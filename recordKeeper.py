@@ -13,8 +13,6 @@ from PyQt5.QtWidgets import QMessageBox, QListWidget, QCheckBox, QPushButton, QA
 from myCamera import CameraWindow
 from database import Database
 from tableView import Ui_Form
-import glob
-import os
 import datetime
 import re
 
