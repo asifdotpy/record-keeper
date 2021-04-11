@@ -10,7 +10,7 @@
 """import necessery modules"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QLineEdit
+from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QVBoxLayout
 from PyQt5.QtGui import QIcon, QBrush, QColor
 from PyQt5.QtCore import QSize, Qt
 import sqlite3
@@ -91,14 +91,16 @@ class Ui_Form(object):
         size = QSize(21, 21)
         self.searchBtn.setIconSize(size)
         self.searchBtn.clicked.connect(self.searchBtnFunc)
-        #---------------------------------------------------------------------------------------------#
+        #----------------------------------item clicked----------------------------------------------#
+
+        #--------------------------------------------------------------------------------------------#
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
 
     def retranslateUi(self, Form):
-        self.tableWidget.verticalHeader().setDefaultSectionSize(80)
+        self.tableWidget.verticalHeader().setDefaultSectionSize(150)
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -158,7 +160,6 @@ class Ui_Form(object):
 
     def getImageLabel(self, image):
         imageLabel = QtWidgets.QLabel(self.tableWidget)
-        imageLabel.setText("")
         imageLabel.setScaledContents(True)
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(image, '.jpg')
@@ -174,6 +175,7 @@ class Ui_Form(object):
             item.setForeground(QBrush(QColor(255, 0, 0)))
             row = item.row()
             self.tableWidget.verticalScrollBar().setSliderPosition(row)
+
 
 
 

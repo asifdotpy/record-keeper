@@ -538,11 +538,8 @@ class Ui_MainWindow(object):
         #sys.argv = ['C:/Users/asifd/PycharmProjects/record-keeper/myCamera.py']
         cam = CameraWindow()
         self.photo_name = cam.image_name
+        print(self.photo_name)
         cam.show()
-
-
-
-
 
 
 
