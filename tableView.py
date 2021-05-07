@@ -10,7 +10,7 @@
 """import necessery modules"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QVBoxLayout
+from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QHeaderView, QMenu, QWidgetAction
 from PyQt5.QtGui import QIcon, QBrush, QColor
 from PyQt5.QtCore import QSize, Qt
 import sqlite3
@@ -91,7 +91,9 @@ class Ui_Form(object):
         size = QSize(21, 21)
         self.searchBtn.setIconSize(size)
         self.searchBtn.clicked.connect(self.searchBtnFunc)
-        #----------------------------------item clicked----------------------------------------------#
+        #----------------------------------item right click----------------------------------------------#
+        self.tableWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.tableWidget.customContextMenuRequested.connect(self.rightMenuShow)
 
         #--------------------------------------------------------------------------------------------#
 
@@ -175,6 +177,12 @@ class Ui_Form(object):
             item.setForeground(QBrush(QColor(255, 0, 0)))
             row = item.row()
             self.tableWidget.verticalScrollBar().setSliderPosition(row)
+
+    # adding right click menu for delete only
+    def rightMenuShow(self, pos):
+        self.menu = QMenu()
+        self.menu.addAction("Delete", lambda : self.tableWidget.removeRow(self.tableWidget.currentRow()))
+        self.menu.exec_(self.tableWidget.mapToGlobal(pos))
 
 
 
