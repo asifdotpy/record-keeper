@@ -180,12 +180,19 @@ class Ui_Form(object):
 
     # adding right click menu for delete only
     def rightMenuShow(self, pos):
-        self.menu = QMenu()
-        self.menu.addAction("Delete", lambda : self.tableWidget.removeRow(self.tableWidget.currentRow()))
-        self.menu.exec_(self.tableWidget.mapToGlobal(pos))
+        try:
+            self.cursor.close()
+            mobile_number = self.tableWidget.item(self.tableWidget.currentRow(), 2).text()
+            name = self.tableWidget.item(self.tableWidget.currentRow(), 1).text()
+            self.menu = QMenu()
+            self.menu.addAction("Delete", lambda : self.tableWidget.removeRow(self.tableWidget.currentRow()))
+            self.menu.exec_(self.tableWidget.mapToGlobal(pos))
+            self.db().execute(f"DELETE FROM data WHERE name='{name}' AND mobile='{mobile_number}';")
+            self.connection.commit()
+            self.cursor.close()
 
-
-
+        except:
+            print("mobile number not found!")
 
 if __name__ == "__main__":
     import sys
@@ -195,3 +202,7 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
+
+
+
+

@@ -40,7 +40,7 @@ class Ui_MainWindow(object):
         self.photo_name = None
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(40, 10, 541, 61))
-        self.label.setStyleSheet("font-size:46px; ")
+        self.label.setStyleSheet("font-size:36px; ")
         self.label.setObjectName("label")
         self.picLabel = QtWidgets.QLabel(self.centralwidget)
         self.picLabel.setGeometry(QtCore.QRect(16, 180, 51, 20))
@@ -312,7 +312,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Noyon Kuthir Punjabi Ghar"))
+        self.label.setText(_translate("MainWindow", "NOYON KUTIR PANJABI FASHION"))
         self.picLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Image</span></p></body></html>"))
         self.nameLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Name</span></p></body></html>"))
         self.titleBox.setItemText(0, _translate("MainWindow", "Mr."))
